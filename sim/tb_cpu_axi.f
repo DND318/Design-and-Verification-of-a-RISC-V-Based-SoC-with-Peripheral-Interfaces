@@ -1,0 +1,17 @@
+rtl/pkg/rv32_defines.vh
+rtl/riscv_core/rv32_decoder.v
+rtl/riscv_core/rv32_imm_gen.v
+rtl/riscv_core/rv32_alu.v
+rtl/riscv_core/rv32_branch_unit.v
+rtl/riscv_core/rv32_lsu.v
+rtl/riscv_core/rv32_muldiv.v
+rtl/riscv_core/rv32_regfile.v
+rtl/riscv_core/rv32_csr.v
+rtl/riscv_core/rv32_core.v
+rtl/riscv_core/cpu_wrapper.v
+rtl/bus/axi_lite_master.v
+rtl/bus/axi_lite_xbar_1x2.v
+rtl/bus/axi_lite_to_apb.v
+rtl/mem/sram_sp.v
+rtl/mem/axi_lite_sram.v
+tb/unit_tests/tb_cpu_axi.sv

@@ -1,0 +1,42 @@
+# build and simulation output
+sim/work/
+sim/report/
+xsim.dir/
+xsim.covdb/
+.Xil/
+*.jou
+*.pb
+*.log
+*.wdb
+*.vcd
+*.fst
+*.ghw
+webtalk*
+obj_dir/
+
+# FPGA and physical design output
+FPGA/**/db/
+FPGA/**/incremental_db/
+FPGA/**/output_files/
+*.gds
+*.gds2
+*.oas
+runs/
+
+# firmware build output
+sw/build/
+*.elf
+*.o
+
+# generated spec tables and LaTeX output
+doc/spec/gen/
+*.aux
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+__pycache__/
+.vscode/*.log
+*:Zone.Identifier
