@@ -1,0 +1,5 @@
+// tb_bus: SRAM lane 0 init (vplan BUS-08). Word 0 = 0x44332211, word 0xFFF = 0x88776655
+@000
+11
+@FFF
+55
