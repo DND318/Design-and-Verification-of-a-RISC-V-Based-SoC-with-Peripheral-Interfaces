@@ -1,0 +1,5 @@
+// tb_bus: SRAM lane 2 init (vplan BUS-08)
+@000
+33
+@FFF
+77
