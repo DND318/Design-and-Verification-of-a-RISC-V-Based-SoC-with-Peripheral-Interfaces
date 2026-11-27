@@ -4,6 +4,10 @@
 #   make build TOP=timer [SIM=verilator|xsim]            class-based testbench (tb/class_tb/<TOP>): compile once
 #   make run   TOP=timer TESTNAME=timer_cmp_test [SEED=n] [PLUSARGS=+VERBOSE]   run one test, no recompile
 #   make tests TOP=timer [SEED=n]                        build, then run every test of testcases/<TOP>/
+#   make wave  TOP=uart TESTNAME=uart_rx_test [TAG=buggy] [SIM=verilator|xsim] [SEED=n]
+#                                                        run one test with a waveform dump:
+#                                                        sim/wave/<TOP>_<TESTNAME>[_<TAG>].fst (Verilator, open with gtkwave)
+#                                                        or .wdb (XSim, open with xsim -gui / Vivado)
 #   make units [SIM=verilator|xsim]                      every block-level directed test in UNIT_TOPS
 #   make soc  [PROG=hello] [SIM=verilator|xsim]          build sw/tests/<PROG>.c and run it on tb_soc_top
 #   make uvm  [TOP=sync_fifo] TEST=fifo_smoke_test [SEED=n] [COV=1]   UVM on XSim
@@ -37,6 +41,9 @@ TESTNAME   ?= $(TOP)_base_test
 TB_TOP     ?= $(if $(wildcard $(PROJ_ROOT)/tb/class_tb/$(TOP)/testbench.sv),testbench,tb_$(TOP))
 # tests of a class-based testbench: every "class <name> extends <TOP>_base_test" in testcases/<TOP>/
 TESTS      ?= $(shell sed -n 's/^class \([A-Za-z0-9_]*\) extends $(TOP)_base_test.*/\1/p' $(PROJ_ROOT)/testcases/$(TOP)/*.sv 2>/dev/null)
+TAG        ?=
+WAVE_DIR   := $(PROJ_ROOT)/sim/wave
+WAVE_NAME  := $(TOP)_$(TESTNAME)$(if $(TAG),_$(TAG))
 PROG       ?= hello
 TB         ?= cpu_wrapper
 
@@ -60,7 +67,7 @@ XSIM_PLUSARGS := $(patsubst +%,-testplusarg %,$(PLUSARGS))
 absf = mkdir -p $(WORK) && sed -E 's\#^(-i[[:space:]]+)?([^-/[:space:]][^[:space:]]*)\#\1$(PROJ_ROOT)/\2\#' \
        $(PROJ_ROOT)/sim/$(1) > $(WORK)/$(basename $(1)).abs.f
 
-.PHONY: all lint build sim run tests units soc uvm regress cov riscv-tests vplan spec check-tools clean
+.PHONY: all lint build sim run tests wave units soc uvm regress cov riscv-tests vplan spec check-tools clean
 
 all: lint sim
 
@@ -123,6 +130,38 @@ tests: build
 	done; \
 	echo "tests: $$pass passed, $$fail failed"; [ $$fail -eq 0 ]
 
+# One test with a waveform dump.
+# Verilator: separate build (work/verilator/<TOP>_wave) with --trace-fst and tb/common/wave_dump.sv
+#   bound into the testbench top, so the normal build used by "make tests" / "make vplan" stays fast.
+#   --no-trace-params: Verilator 5.020 crashes when it dumps parameters of the class testbenches.
+# XSim: the normal snapshot (xelab -debug typical) logs every signal into a .wdb.
+wave:
+	@mkdir -p $(REPORT) $(WAVE_DIR)
+ifeq ($(SIM),verilator)
+	@$(call absf,tb_$(TOP).f)
+	@echo "bind $(TB_TOP) wave_dump u_wave_dump();" > $(WORK)/wave_bind_$(TOP).sv
+	mkdir -p $(WORK)/verilator/$(TOP)_wave
+	sed -E 's#^-i[[:space:]]+(.*)#+incdir+\1#' $(WORK)/tb_$(TOP).abs.f > $(WORK)/tb_$(TOP).vl.f
+	verilator --binary $(VERILATOR_FLAGS) $(VERILATOR_TB) --trace-fst --no-trace-params -f $(WORK)/tb_$(TOP).vl.f \
+	  $(PROJ_ROOT)/tb/common/wave_dump.sv $(WORK)/wave_bind_$(TOP).sv \
+	  --top-module $(TB_TOP) -Mdir $(WORK)/verilator/$(TOP)_wave -o sim_$(TOP)_wave
+	$(WORK)/verilator/$(TOP)_wave/sim_$(TOP)_wave +$(TESTNAME) +TESTNAME=$(TESTNAME) +verilator+seed+$(SEED) \
+	  +WAVEFILE=$(WAVE_DIR)/$(WAVE_NAME).fst $(PLUSARGS) 2>&1 | tee $(REPORT)/wave_$(WAVE_NAME).log; \
+	  exit $${PIPESTATUS[0]}
+	-@$(CHECK_LOG) $(REPORT)/wave_$(WAVE_NAME).log
+	@echo "Waveform: sim/wave/$(WAVE_NAME).fst"
+	@echo "Open:     gtkwave sim/wave/$(WAVE_NAME).fst sim/wave_cfg/$(TOP).gtkw &"
+else ifeq ($(SIM),xsim)
+	$(MAKE) --no-print-directory build TOP=$(TOP) SIM=xsim
+	@printf 'log_wave -recursive *\nrun all\nquit\n' > $(WORK)/wave_all.tcl
+	cd $(WORK) && xsim tb_$(TOP) -sv_seed $(SEED) -testplusarg $(TESTNAME) -testplusarg TESTNAME=$(TESTNAME) \
+	  $(XSIM_PLUSARGS) -wdb $(WAVE_DIR)/$(WAVE_NAME).wdb -tclbatch wave_all.tcl 2>&1 | tee $(REPORT)/wave_$(WAVE_NAME).log
+	-@$(CHECK_LOG) $(REPORT)/wave_$(WAVE_NAME).log
+	@echo "Waveform: sim/wave/$(WAVE_NAME).wdb   (open: xsim -gui sim/wave/$(WAVE_NAME).wdb)"
+else
+	$(error SIM must be verilator or xsim)
+endif
+
 units:
 	@pass=0; fail=0; \
 	for t in $(UNIT_TOPS); do \
@@ -177,4 +216,4 @@ spec:
 	  pdflatex -interaction=nonstopmode soc_spec.tex >/dev/null && echo "doc/spec/soc_spec.pdf rebuilt"
 
 clean:
-	rm -rf $(WORK) $(REPORT)
+	rm -rf $(WORK) $(REPORT) $(WAVE_DIR)

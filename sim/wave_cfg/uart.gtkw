@@ -1,0 +1,63 @@
+[*] GTKWave save file for the uart class testbench (make wave TOP=uart)
+[*] open: gtkwave sim/wave/<file>.fst sim/wave_cfg/uart.gtkw
+[timestart] 0
+@28
+TOP.testbench.clk
+@800200
+-apb_if_0
+@28
+TOP.testbench.apb_if_0.psel
+@28
+TOP.testbench.apb_if_0.penable
+@28
+TOP.testbench.apb_if_0.pwrite
+@22
+TOP.testbench.apb_if_0.paddr[11:0]
+@22
+TOP.testbench.apb_if_0.pwdata[31:0]
+@22
+TOP.testbench.apb_if_0.pstrb[3:0]
+@22
+TOP.testbench.apb_if_0.prdata[31:0]
+@28
+TOP.testbench.apb_if_0.pready
+@28
+TOP.testbench.apb_if_0.pslverr
+@22
+TOP.testbench.apb_if_0.irq[7:0]
+@22
+TOP.testbench.apb_if_0.cyc[63:0]
+@1000200
+-apb_if_0
+@800200
+-uart_if_0
+@28
+TOP.testbench.uart_if_0.rx
+@28
+TOP.testbench.uart_if_0.tx
+@28
+TOP.testbench.uart_if_0.tx_ser
+@1000200
+-uart_if_0
+@800200
+-DUT internals
+@28
+TOP.testbench.u_dut.u_rx_sync.q_o[0:0]
+@22
+TOP.testbench.u_dut.u_rx.state_q[2:0]
+@22
+TOP.testbench.u_dut.u_rx.cnt_q[15:0]
+@28
+TOP.testbench.u_dut.u_rx.valid_o
+@22
+TOP.testbench.u_dut.u_rx.data_o[7:0]
+@22
+TOP.testbench.u_dut.u_tx.state_q[2:0]
+@22
+TOP.testbench.u_dut.u_tx.bit_q[2:0]
+@28
+TOP.testbench.u_dut.u_tx.par_bit_q
+@22
+TOP.testbench.u_dut.isr_val[5:0]
+@1000200
+-DUT internals
