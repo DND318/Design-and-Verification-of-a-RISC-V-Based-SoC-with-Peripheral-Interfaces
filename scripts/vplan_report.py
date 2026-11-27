@@ -106,7 +106,10 @@ def riscv(tb, suites, log):
     rc, out = run(["bash", "scripts/run_riscv_tests.sh"] + suites, env={"TB": tb}, log=log)
     summ = [l for l in out.splitlines() if l.startswith("riscv-tests:")]
     fails = [l for l in out.splitlines() if l.startswith("FAIL")]
-    return rc == 0, (summ[-1] if summ else "no summary") + ("; " + "; ".join(fails) if fails else ""), out
+    m = re.search(r"(\d+) passed, (\d+) failed, (\d+) expected", summ[-1]) if summ else None
+    ran = bool(m) and sum(int(x) for x in m.groups()) > 0   # 0 tests run is not a PASS
+    det = (summ[-1] if summ else "no summary") + ("" if ran else " (no test ran: sw/riscv-tests missing?)")
+    return rc == 0 and ran, det + ("; " + "; ".join(fails) if fails else ""), out
 
 
 def soc(prog):
