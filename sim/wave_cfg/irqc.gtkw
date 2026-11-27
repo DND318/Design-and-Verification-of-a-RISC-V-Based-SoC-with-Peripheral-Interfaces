@@ -1,0 +1,51 @@
+[*] GTKWave save file for the irqc class testbench (make wave TOP=irqc)
+[*] open: gtkwave sim/wave/<file>.fst sim/wave_cfg/irqc.gtkw
+[timestart] 0
+@28
+TOP.testbench.clk
+@800200
+-apb_if_0
+@28
+TOP.testbench.apb_if_0.psel
+@28
+TOP.testbench.apb_if_0.penable
+@28
+TOP.testbench.apb_if_0.pwrite
+@22
+TOP.testbench.apb_if_0.paddr[11:0]
+@22
+TOP.testbench.apb_if_0.pwdata[31:0]
+@22
+TOP.testbench.apb_if_0.pstrb[3:0]
+@22
+TOP.testbench.apb_if_0.prdata[31:0]
+@28
+TOP.testbench.apb_if_0.pready
+@28
+TOP.testbench.apb_if_0.pslverr
+@22
+TOP.testbench.apb_if_0.irq[7:0]
+@22
+TOP.testbench.apb_if_0.cyc[63:0]
+@1000200
+-apb_if_0
+@800200
+-irqc_if_0
+@22
+TOP.testbench.irqc_if_0.irq_in[3:0]
+@28
+TOP.testbench.irqc_if_0.irq
+@1000200
+-irqc_if_0
+@800200
+-DUT internals
+@22
+TOP.testbench.u_dut.pending[3:0]
+@22
+TOP.testbench.u_dut.enable_q[3:0]
+@22
+TOP.testbench.u_dut.status[3:0]
+@22
+TOP.testbench.u_dut.irq_id[2:0]
+@1000200
+-DUT internals

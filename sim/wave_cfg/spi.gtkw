@@ -1,0 +1,59 @@
+[*] GTKWave save file for the spi class testbench (make wave TOP=spi)
+[*] open: gtkwave sim/wave/<file>.fst sim/wave_cfg/spi.gtkw
+[timestart] 0
+@28
+TOP.testbench.clk
+@800200
+-apb_if_0
+@28
+TOP.testbench.apb_if_0.psel
+@28
+TOP.testbench.apb_if_0.penable
+@28
+TOP.testbench.apb_if_0.pwrite
+@22
+TOP.testbench.apb_if_0.paddr[11:0]
+@22
+TOP.testbench.apb_if_0.pwdata[31:0]
+@22
+TOP.testbench.apb_if_0.pstrb[3:0]
+@22
+TOP.testbench.apb_if_0.prdata[31:0]
+@28
+TOP.testbench.apb_if_0.pready
+@28
+TOP.testbench.apb_if_0.pslverr
+@22
+TOP.testbench.apb_if_0.irq[7:0]
+@22
+TOP.testbench.apb_if_0.cyc[63:0]
+@1000200
+-apb_if_0
+@800200
+-spi_if_0
+@28
+TOP.testbench.spi_if_0.sclk
+@28
+TOP.testbench.spi_if_0.mosi
+@28
+TOP.testbench.spi_if_0.miso
+@28
+TOP.testbench.spi_if_0.cs_n
+@28
+TOP.testbench.spi_if_0.irq
+@1000200
+-spi_if_0
+@800200
+-DUT internals
+@22
+TOP.testbench.u_dut.u_engine.state_q[1:0]
+@22
+TOP.testbench.u_dut.u_engine.rx_data_o[7:0]
+@28
+TOP.testbench.u_dut.u_engine.done_o
+@22
+TOP.testbench.u_dut.isr_q[1:0]
+@22
+TOP.testbench.u_dut.ier_q[1:0]
+@1000200
+-DUT internals

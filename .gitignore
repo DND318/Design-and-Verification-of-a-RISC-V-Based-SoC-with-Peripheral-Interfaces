@@ -1,6 +1,7 @@
 # build and simulation output
 sim/work/
 sim/report/
+sim/wave/
 xsim.dir/
 xsim.covdb/
 .Xil/

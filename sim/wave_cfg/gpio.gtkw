@@ -1,0 +1,59 @@
+[*] GTKWave save file for the gpio class testbench (make wave TOP=gpio)
+[*] open: gtkwave sim/wave/<file>.fst sim/wave_cfg/gpio.gtkw
+[timestart] 0
+@28
+TOP.testbench.clk
+@800200
+-apb_if_0
+@28
+TOP.testbench.apb_if_0.psel
+@28
+TOP.testbench.apb_if_0.penable
+@28
+TOP.testbench.apb_if_0.pwrite
+@22
+TOP.testbench.apb_if_0.paddr[11:0]
+@22
+TOP.testbench.apb_if_0.pwdata[31:0]
+@22
+TOP.testbench.apb_if_0.pstrb[3:0]
+@22
+TOP.testbench.apb_if_0.prdata[31:0]
+@28
+TOP.testbench.apb_if_0.pready
+@28
+TOP.testbench.apb_if_0.pslverr
+@22
+TOP.testbench.apb_if_0.irq[7:0]
+@22
+TOP.testbench.apb_if_0.cyc[63:0]
+@1000200
+-apb_if_0
+@800200
+-gpio_if_0
+@22
+TOP.testbench.gpio_if_0.gpio_i[7:0]
+@22
+TOP.testbench.gpio_if_0.gpio_o[7:0]
+@22
+TOP.testbench.gpio_if_0.gpio_oe[7:0]
+@28
+TOP.testbench.gpio_if_0.irq
+@1000200
+-gpio_if_0
+@800200
+-DUT internals
+@22
+TOP.testbench.u_dut.u_sync_in.meta_q[7:0]
+@22
+TOP.testbench.u_dut.in_sync[7:0]
+@22
+TOP.testbench.u_dut.in_prev_q[7:0]
+@22
+TOP.testbench.u_dut.rise[7:0]
+@22
+TOP.testbench.u_dut.ie_q[7:0]
+@22
+TOP.testbench.u_dut.is_q[7:0]
+@1000200
+-DUT internals

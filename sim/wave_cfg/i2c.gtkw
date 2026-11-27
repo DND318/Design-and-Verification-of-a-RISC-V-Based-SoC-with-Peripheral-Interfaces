@@ -1,0 +1,67 @@
+[*] GTKWave save file for the i2c class testbench (make wave TOP=i2c)
+[*] open: gtkwave sim/wave/<file>.fst sim/wave_cfg/i2c.gtkw
+[timestart] 0
+@28
+TOP.testbench.clk
+@800200
+-apb_if_0
+@28
+TOP.testbench.apb_if_0.psel
+@28
+TOP.testbench.apb_if_0.penable
+@28
+TOP.testbench.apb_if_0.pwrite
+@22
+TOP.testbench.apb_if_0.paddr[11:0]
+@22
+TOP.testbench.apb_if_0.pwdata[31:0]
+@22
+TOP.testbench.apb_if_0.pstrb[3:0]
+@22
+TOP.testbench.apb_if_0.prdata[31:0]
+@28
+TOP.testbench.apb_if_0.pready
+@28
+TOP.testbench.apb_if_0.pslverr
+@22
+TOP.testbench.apb_if_0.irq[7:0]
+@22
+TOP.testbench.apb_if_0.cyc[63:0]
+@1000200
+-apb_if_0
+@800200
+-i2c_if_0
+@28
+TOP.testbench.i2c_if_0.scl
+@28
+TOP.testbench.i2c_if_0.sda
+@28
+TOP.testbench.i2c_if_0.scl_oe
+@28
+TOP.testbench.i2c_if_0.sda_oe
+@28
+TOP.testbench.i2c_if_0.scl_o
+@28
+TOP.testbench.i2c_if_0.sda_o
+@28
+TOP.testbench.i2c_if_0.sda_low
+@28
+TOP.testbench.i2c_if_0.ext_scl_low
+@28
+TOP.testbench.i2c_if_0.ext_sda_low
+@28
+TOP.testbench.i2c_if_0.irq
+@1000200
+-i2c_if_0
+@800200
+-DUT internals
+@22
+TOP.testbench.u_dut.u_engine.state_q[2:0]
+@28
+TOP.testbench.u_dut.eng_busy
+@28
+TOP.testbench.u_dut.eng_done
+@22
+TOP.testbench.u_dut.isr_q[1:0]
+@1000200
+-DUT internals
