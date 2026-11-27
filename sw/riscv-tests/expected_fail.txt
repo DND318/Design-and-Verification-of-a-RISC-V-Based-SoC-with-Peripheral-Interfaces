@@ -1,0 +1,5 @@
+# riscv-tests that fail by design on this core (feature not in doc/spec).
+# Format: <suite>-<test>  <reason>
+rv32ui-ma_data      misaligned load/store raise an exception (spec 3.3, Proposed), not done in hardware
+rv32mi-breakpoint   no debug trigger CSRs (tselect/tdata, Sdtrig) in the spec
+rv32mi-pmpaddr      no PMP in the spec
